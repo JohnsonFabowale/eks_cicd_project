@@ -1,0 +1,24 @@
+apiVersion: argoproj.io/v1alpha1
+kind: AppProject
+metadata:
+  name: my-app-project
+  namespace: argocd
+# Finalizer that ensures that project is not delete until it is not referenced by any application
+  finalizers:
+    - reslources.finalizer.argocd.argoproj.io
+spec:
+# Project description
+  description: Learning CICD-GitOps
+# Allow manifest to deploy from git repo
+  sourceRepos:
+    - "*" # Change to specfific repo
+  destinations:
+    - namespace: argocd
+      server: https://kubernetes.default.svc
+# Deny all cluster-scoped resources from being created except for namespace
+  clusterResourceWhitelist:
+    - group: ""
+      kind: Namespace
+# Is a feature that allow you to automatically delete kubernetes resources that are no longer managed by any app
+  orphanedResources:
+    warn: false

@@ -11,5 +11,5 @@ resource "aws_nat_gateway" "nat-gateway" {
   tags = {
     Name = "nat-gateway"
   }
-  depends_on = [aws_eip.nat-eip]
+  depends_on = [aws_internet_gateway.igw]
 }

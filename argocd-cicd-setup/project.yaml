@@ -11,7 +11,7 @@ spec:
   description: Learning CICD-GitOps
 # Allow manifest to deploy from git repo
   sourceRepos:
-    - "*" # Change to specfific repo
+    - "master" 
   destinations:
     - namespace: argocd
       server: https://kubernetes.default.svc

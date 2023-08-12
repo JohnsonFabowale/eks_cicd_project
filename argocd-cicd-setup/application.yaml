@@ -10,8 +10,8 @@ spec:
   project: my-app-project 
   source:
     repoURL: https://github.com/JohnsonFabowale/eks_cicd_project.git
-    targetRevision: HEAD
-    path: argocd-cicd-setup/dev
+    targetRevision: master
+    path: argocd-cicd-setup
   destination:
     server: https://kubernetes.default.svc
     namespace: my-app
@@ -20,8 +20,8 @@ spec:
       prune: true
       selfHeal: true
       allowEmpty: false
-  syncOptions:
+    syncOptions:
     - validate = true
     - CreateNamespace = true
     - prunePropagationPolicy = foreground
-    - pruneLast = true
+    - pruneLast = true  

@@ -1,0 +1,181 @@
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: eks-console-dashboard-restricted-access-clusterrole
+rules:
+- apiGroups:
+  - ""
+  resources:
+  - nodes
+  - namespaces
+  verbs:
+  - get
+  - list
+  - create
+  - patch
+  - update
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: eks-console-dashboard-restricted-access-clusterrole-binding
+subjects:
+- kind: Group
+  name: eks-console-dashboard-restricted-access-group
+  apiGroup: rbac.authorization.k8s.io
+roleRef:
+  kind: ClusterRole
+  name: eks-console-dashboard-restricted-access-clusterrole
+  apiGroup: rbac.authorization.k8s.io
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  namespace: default
+  name: eks-console-dashboard-restricted-access-role
+rules:
+- apiGroups:
+  - ""
+  resources: 
+  - pods
+  - configmaps
+  - endpoints
+  - events
+  - limitranges
+  - persistentvolumeclaims
+  - podtemplates
+  - replicationcontrollers
+  - resourcequotas
+  - secrets
+  - serviceaccounts
+  - services
+  verbs:
+  - get
+  - list
+  - create
+  - patch
+  - update
+- apiGroups:
+  - apps
+  resources:
+  - deployments
+  - daemonsets
+  - statefulsets
+  - replicasets
+  verbs:
+  - get
+  - list
+  - create
+  - patch
+  - update
+- apiGroups:
+  - batch
+  resources:
+  - jobs
+  - cronjobs
+  verbs:
+  - get
+  - list
+  - create
+  - patch
+  - update
+- apiGroups:
+  - coordination.k8s.io
+  resources:
+  - leases
+  verbs:
+  - get
+  - list
+  - create
+  - patch
+  - update
+- apiGroups:
+  - discovery.k8s.io
+  resources:
+  - endpointslices
+  verbs:
+  - get
+  - list
+  - create
+  - patch
+  - update
+- apiGroups:
+  - events.k8s.io
+  resources:
+  - events
+  verbs:
+  - get
+  - list
+  - create
+  - patch
+  - update
+- apiGroups:
+  - extensions
+  resources:
+  - daemonsets
+  - deployments
+  - ingresses
+  - networkpolicies
+  - replicasets
+  verbs:
+  - get
+  - list
+  - create
+  - patch
+  - update
+- apiGroups:
+  - networking.k8s.io
+  resources:
+  - ingresses
+  - networkpolicies
+  verbs:
+  - get
+  - list
+  - create
+  - patch
+  - update
+- apiGroups:
+  - policy
+  resources:
+  - poddisruptionbudgets
+  verbs:
+  - get
+  - list
+  - create
+  - patch
+  - update
+- apiGroups:
+  - rbac.authorization.k8s.io
+  resources:
+  - rolebindings
+  - roles
+  verbs:
+  - get
+  - list
+  - create
+  - patch
+  - update
+- apiGroups:
+  - storage.k8s.io
+  resources:
+  - csistoragecapacities
+  verbs:
+  - get
+  - list
+  - create
+  - patch
+  - update
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: eks-console-dashboard-restricted-access-role-binding
+  namespace: default
+subjects:
+- kind: Group
+  name: eks-console-dashboard-restricted-access-group
+  apiGroup: rbac.authorization.k8s.io
+roleRef:
+  kind: Role
+  name: eks-console-dashboard-restricted-access-role
+  apiGroup: rbac.authorization.k8s.io

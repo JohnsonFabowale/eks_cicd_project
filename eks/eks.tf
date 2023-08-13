@@ -53,7 +53,7 @@
 # #       Action = "sts:AssumeRole"
 # #       }
 # #     ]   
-  
+
 # #   })
 # # }
 
@@ -168,9 +168,10 @@ resource "aws_iam_role_policy_attachment" "nodes-AmazonEC2ContainerRegistryReadO
   policy_arn = "arn:aws:iam::aws:policy/AmazonEC2ContainerRegistryReadOnly"
   role       = aws_iam_role.nodes-role.name
 }
-# resource "aws_eks_cluster" "eks-project" {
-#   name     = var.cluster-name
-#   role_arn = aws_iam_policy.eks_view_resources_policy.arn
+
+resource "aws_eks_cluster" "eks-project" {
+  name     = var.cluster-name
+  role_arn = aws_iam_role.cluster_role.arn
 
   vpc_config {
     subnet_ids = [
@@ -184,7 +185,7 @@ resource "aws_iam_role_policy_attachment" "nodes-AmazonEC2ContainerRegistryReadO
   }
 
   #depends_on = [aws_iam_role_policy_attachment.cluster_role-AmazonEKSClusterPolicy]
-
+}
 
 
 resource "aws_eks_node_group" "private-nodes" {

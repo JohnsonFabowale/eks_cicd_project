@@ -11,9 +11,9 @@ spec:
   description: Learning CICD-GitOps
 # Allow manifest to deploy from git repo
   sourceRepos:
-    - "master" 
+    - "*" 
   destinations:
-    - namespace: argocd
+    - namespace: my-app
       server: https://kubernetes.default.svc
 # Deny all cluster-scoped resources from being created except for namespace
   clusterResourceWhitelist:
